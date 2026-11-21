@@ -78,7 +78,11 @@ button,.btn{border:0;border-radius:13px;padding:13px 17px;background:var(--mint)
 (() => {
  const $ = id => document.getElementById(id);
  const qs = new URLSearchParams(location.search);
- let workerUrl = localStorage.getItem('muminShareWorker') || '';
+ let workerUrl = qs.get('worker') || localStorage.getItem('muminShareWorker') || '';
+ if (workerUrl) {
+   workerUrl = workerUrl.trim().replace(/\/+$/,'');
+   localStorage.setItem('muminShareWorker', workerUrl);
+ }
  $('workerUrl').value = workerUrl;
  $('saveConfig').onclick = () => {
    workerUrl = $('workerUrl').value.trim().replace(/\/+$/,'');
@@ -91,7 +95,7 @@ button,.btn{border:0;border-radius:13px;padding:13px 17px;background:var(--mint)
  const setButtons=()=>{ $('sendBtn').disabled=!connected || !selected.length; $('disconnectBtn').disabled=!ws; };
  const randomRoom=()=>String(Math.floor(100000+Math.random()*900000));
  function connectSignal(code){
-   if(!workerUrl) { alert('আগে সেটিংসে Cloudflare Worker URL সংরক্ষণ করুন।'); return; }
+   if(!workerUrl) { setStatus('Worker URL পাওয়া যায়নি। সেটিংসে URL সংরক্ষণ করুন।','err'); alert('এই ডিভাইসে Worker URL নেই। সেটিংসে URL সংরক্ষণ করুন।'); return; }
    room=code;
    const url=workerUrl.replace(/^https:/,'wss:')+'/room/'+code;
    ws=new WebSocket(url);
@@ -103,8 +107,8 @@ button,.btn{border:0;border-radius:13px;padding:13px 17px;background:var(--mint)
      if(m.type==='peer-left'){ setStatus('অন্য ডিভাইস সংযোগ বিচ্ছিন্ন করেছে।'); }
      if(m.type==='error'){setStatus(m.message||'সংযোগে সমস্যা হয়েছে।','err');}
    };
-   ws.onerror=()=>setStatus('Worker-এর সঙ্গে সংযোগ হয়নি। Worker URL ও সেটআপ পরীক্ষা করুন।','err');
-   ws.onclose=()=>{if(connected) setStatus('সিগন্যাল সংযোগ বন্ধ হয়েছে।','err');};
+   ws.onerror=()=>setStatus('Worker-এর সঙ্গে সংযোগ হয়নি। Worker URL বা Cloudflare সেটআপ পরীক্ষা করুন।','err');
+   ws.onclose=()=>{ if(!connected) setStatus('Worker সিগন্যাল সংযোগ বন্ধ হয়েছে। আবার কানেকশন তৈরি করে চেষ্টা করুন।','err'); };
  }
  function sendSignal(data){ if(ws&&ws.readyState===WebSocket.OPEN) ws.send(JSON.stringify({type:'signal',data})); }
  function setupPeer(){
@@ -139,7 +143,7 @@ button,.btn{border:0;border-radius:13px;padding:13px 17px;background:var(--mint)
  $('createBtn').onclick=()=>{
    if(!workerUrl){$('workerUrl').focus();alert('প্রথমে Worker URL সংরক্ষণ করুন।');return;}
    const code=randomRoom(); $('qrArea').classList.remove('hidden'); $('roomCode').textContent=code; $('qrcode').innerHTML='';
-   const joinUrl=location.origin+location.pathname+'?room='+code;
+   const joinUrl=location.origin+location.pathname+'?room='+code+'&worker='+encodeURIComponent(workerUrl);
    if(window.QRCode) new QRCode($('qrcode'),{text:joinUrl,width:168,height:168});
    connectSignal(code); $('createBtn').disabled=true;
  };
@@ -196,4 +200,5 @@ button,.btn{border:0;border-radius:13px;padding:13px 17px;background:var(--mint)
  setButtons();
 })();
 </script>
-</body></html>
+</body>
+</html>
