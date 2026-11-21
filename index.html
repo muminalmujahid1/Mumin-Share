@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#071b2a">
+<meta name="description" content="Mumin Share — সহজে ফোন ও কম্পিউটারের মধ্যে ফাইল ট্রান্সফার করুন।">
+<title>Mumin Share — File Transfer</title>
+<style>
+:root{--bg:#061522;--panel:#0d2434;--panel2:#102d40;--line:#1c4054;--text:#eaf5f7;--muted:#9bb5c2;--mint:#53e0bd;--gold:#e7c477;--red:#ff7c83}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#12384a 0,transparent 38%),var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+.wrap{width:min(960px,100% - 32px);margin:auto;padding:28px 0 48px}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:42px}
+.brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:20px;letter-spacing:.2px}.logo{width:42px;height:42px;border-radius:14px;background:linear-gradient(145deg,#174b59,#0c2a3d);display:grid;place-items:center;border:1px solid #2b6872;color:var(--mint);font-size:21px}
+.pill{font-size:12px;color:var(--mint);border:1px solid #256354;background:#0c302d;padding:7px 11px;border-radius:99px}
+.hero{text-align:center;margin:0 auto 28px;max-width:660px}.eyebrow{color:var(--mint);font-size:12px;letter-spacing:2px;text-transform:uppercase;font-weight:800}.hero h1{font-size:clamp(30px,6vw,52px);line-height:1.08;margin:13px 0}.hero p{color:var(--muted);line-height:1.7;margin:0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.card{background:linear-gradient(160deg,#102b3d,#0a1d2b);border:1px solid var(--line);border-radius:22px;padding:22px;box-shadow:0 18px 50px #0002}.card h2{font-size:18px;margin:0 0 8px}.sub{color:var(--muted);font-size:13px;line-height:1.6;margin:0 0 18px}
+.bigicon{width:54px;height:54px;border-radius:17px;display:grid;place-items:center;background:#123c43;color:var(--mint);font-size:25px;margin-bottom:16px}
+button,.btn{border:0;border-radius:13px;padding:13px 17px;background:var(--mint);color:#06211f;font-weight:800;font-size:14px;cursor:pointer;transition:.2s}button:hover,.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}button:disabled{opacity:.45;cursor:not-allowed;transform:none}.secondary{background:#17394b;color:var(--text);border:1px solid #2a5266}.danger{background:#47252d;color:#ffdadd;border:1px solid #79404a}
+.status{margin-top:16px;padding:12px 14px;border-radius:12px;background:#091a27;border:1px solid var(--line);font-size:13px;color:var(--muted);line-height:1.5;overflow-wrap:anywhere}.status.ok{color:var(--mint)}.status.err{color:#ffadb2}
+.qrbox{background:#fff;border-radius:16px;width:190px;height:190px;margin:14px auto;display:grid;place-items:center;padding:10px}.qrbox canvas,.qrbox img{max-width:100%;height:auto}.roomcode{font-size:24px;letter-spacing:5px;font-weight:900;color:var(--gold);text-align:center}
+.filearea{border:1px dashed #376174;background:#0a2030;border-radius:16px;padding:20px;text-align:center;margin-top:14px}.filearea input{display:none}.filelist{display:grid;gap:10px;margin-top:14px}.fileitem{background:#0a1b29;border:1px solid var(--line);border-radius:12px;padding:12px}.filetop{display:flex;justify-content:space-between;gap:10px;font-size:13px}.filetop span:first-child{overflow-wrap:anywhere}.bar{height:6px;background:#1c3544;border-radius:20px;margin-top:9px;overflow:hidden}.bar i{display:block;height:100%;width:0;background:var(--mint);transition:width .15s}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.hidden{display:none!important}.footer{text-align:center;color:#6f8b99;font-size:12px;margin-top:28px}.config{margin-top:18px}.config summary{color:var(--muted);font-size:12px;cursor:pointer}.config input{width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#061522;color:var(--text);margin-top:10px}
+.note{font-size:12px;color:var(--muted);line-height:1.6;margin-top:12px}
+@media(max-width:700px){.wrap{width:min(100% - 22px,520px);padding-top:18px}.top{margin-bottom:30px}.grid{grid-template-columns:1fr}.card{padding:18px}.hero{margin-bottom:22px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+ <div class="brand"><div class="logo">↗</div><span>Mumin Share</span></div>
+ <div class="pill">PRIVATE • WIRELESS</div>
+</header>
+<section class="hero">
+ <div class="eyebrow">Simple. Fast. Private.</div>
+ <h1>ফাইল পাঠান,<br><span style="color:var(--mint)">ঝামেলা ছাড়াই।</span></h1>
+ <p>ফোন ও কম্পিউটারের মধ্যে ছবি, ভিডিও, অডিও এবং যেকোনো ফাইল আদান-প্রদান করুন। একই Wi-Fi-তে থাকলে সরাসরি ডিভাইসের মধ্যে ডেটা যাবে।</p>
+</section>
+<main class="grid">
+ <section class="card">
+  <div class="bigicon">▣</div>
+  <h2>কম্পিউটার থেকে কানেক্ট করুন</h2>
+  <p class="sub">এই ডিভাইসটিকে রিসিভার বা সেন্ডার হিসেবে প্রস্তুত করুন। তারপর ফোন দিয়ে QR কোড স্ক্যান করুন।</p>
+  <button id="createBtn">কানেকশন তৈরি করুন</button>
+  <div id="qrArea" class="hidden">
+   <div class="qrbox" id="qrcode"></div>
+   <div class="roomcode" id="roomCode"></div>
+   <div class="note" style="text-align:center">ফোনের ক্যামেরা দিয়ে QR কোড স্ক্যান করুন। ফোনে এই ওয়েবসাইট খুলে কানেক্ট হবে।</div>
+  </div>
+  <div id="pcStatus" class="status">এখনো কোনো ডিভাইস কানেক্ট হয়নি।</div>
+ </section>
+ <section class="card">
+  <div class="bigicon">⇧</div>
+  <h2>ফাইল পাঠান</h2>
+  <p class="sub">ডিভাইস কানেক্ট হলে ফাইল বেছে পাঠান। অন্য ডিভাইস থেকে আসা ফাইল এখানে ডাউনলোড হবে।</p>
+  <div class="filearea">
+   <label for="fileInput" class="btn">ফাইল নির্বাচন করুন</label>
+   <input id="fileInput" type="file" multiple>
+   <div class="note">ছবি • ভিডিও • অডিও • PDF • ZIP • অন্যান্য</div>
+  </div>
+  <div class="actions">
+   <button id="sendBtn" disabled>নির্বাচিত ফাইল পাঠান</button>
+   <button id="disconnectBtn" class="secondary" disabled>ডিসকানেক্ট</button>
+  </div>
+  <div id="transferList" class="filelist"></div>
+  <div id="receiveList" class="filelist"></div>
+ </section>
+</main>
+<details class="config">
+ <summary>⚙ সংযোগ সেটিংস (প্রথমবার Worker URL বসাতে হবে)</summary>
+ <input id="workerUrl" placeholder="https://your-worker.your-subdomain.workers.dev">
+ <div class="actions"><button id="saveConfig" class="secondary">Worker URL সংরক্ষণ</button></div>
+ <p class="note">এখানে আপনার Cloudflare Worker-এর ঠিকানা বসান। এটি শুধু কানেকশন তৈরি ও ডিভাইস জোড়া লাগাতে ব্যবহৃত হবে; ফাইল Worker-এ আপলোড হয় না।</p>
+</details>
+<div class="footer">Mumin Share · Made for easy sharing</div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+(() => {
+ const $ = id => document.getElementById(id);
+ const qs = new URLSearchParams(location.search);
+ let workerUrl = localStorage.getItem('muminShareWorker') || '';
+ $('workerUrl').value = workerUrl;
+ $('saveConfig').onclick = () => {
+   workerUrl = $('workerUrl').value.trim().replace(/\/+$/,'');
+   if (!/^https:\/\/.+/.test(workerUrl)) return alert('Cloudflare Worker-এর https:// URL দিন।');
+   localStorage.setItem('muminShareWorker',workerUrl); alert('Worker URL সংরক্ষণ হয়েছে।');
+ };
+ let ws=null, pc=null, channel=null, room='', connected=false, pending=[], incoming=null, selected=[];
+ const CHUNK=16*1024;
+ const setStatus=(msg,kind='')=>{ $('pcStatus').textContent=msg; $('pcStatus').className='status '+kind; };
+ const setButtons=()=>{ $('sendBtn').disabled=!connected || !selected.length; $('disconnectBtn').disabled=!ws; };
+ const randomRoom=()=>String(Math.floor(100000+Math.random()*900000));
+ function connectSignal(code){
+   if(!workerUrl) { alert('আগে সেটিংসে Cloudflare Worker URL সংরক্ষণ করুন।'); return; }
+   room=code;
+   const url=workerUrl.replace(/^https:/,'wss:')+'/room/'+code;
+   ws=new WebSocket(url);
+   ws.onopen=()=>{ if(!qs.has('room')) setStatus('কানেকশন তৈরি হয়েছে। ফোন থেকে QR স্ক্যান করুন।','ok'); else setStatus('কম্পিউটারের সঙ্গে যুক্ত হওয়ার চেষ্টা চলছে…'); };
+   ws.onmessage=async e=>{
+     let m; try{m=JSON.parse(e.data)}catch{return}
+     if(m.type==='peer-joined'){ $('pcStatus').textContent='অন্য ডিভাইস পাওয়া গেছে, সংযোগ হচ্ছে…'; if(!qs.has('room')) await makeOffer(); }
+     if(m.type==='signal' && m.data){ await handleSignal(m.data); }
+     if(m.type==='peer-left'){ setStatus('অন্য ডিভাইস সংযোগ বিচ্ছিন্ন করেছে।'); }
+     if(m.type==='error'){setStatus(m.message||'সংযোগে সমস্যা হয়েছে।','err');}
+   };
+   ws.onerror=()=>setStatus('Worker-এর সঙ্গে সংযোগ হয়নি। Worker URL ও সেটআপ পরীক্ষা করুন।','err');
+   ws.onclose=()=>{if(connected) setStatus('সিগন্যাল সংযোগ বন্ধ হয়েছে।','err');};
+ }
+ function sendSignal(data){ if(ws&&ws.readyState===WebSocket.OPEN) ws.send(JSON.stringify({type:'signal',data})); }
+ function setupPeer(){
+   pc=new RTCPeerConnection({iceServers:[{urls:'stun:stun.l.google.com:19302'}]});
+   pc.onicecandidate=e=>{if(e.candidate) sendSignal({candidate:e.candidate});};
+   pc.onconnectionstatechange=()=>{if(pc.connectionState==='connected') setStatus('ডিভাইস কানেক্ট হয়েছে! এখন ফাইল পাঠাতে পারবেন।','ok'); if(['failed','disconnected','closed'].includes(pc.connectionState)){connected=false;setButtons();}};
+   pc.ondatachannel=e=>setupChannel(e.channel);
+ }
+ function setupChannel(ch){
+   channel=ch; channel.binaryType='arraybuffer';
+   channel.onopen=()=>{connected=true;setStatus('ডিভাইস কানেক্ট হয়েছে! ফাইল পাঠানো ও গ্রহণ করা যাবে।','ok');setButtons();};
+   channel.onclose=()=>{connected=false;setButtons();};
+   channel.onmessage=e=>receiveData(e.data);
+ }
+ async function makeOffer(){
+   if(!pc) setupPeer();
+   const ch=pc.createDataChannel('files'); setupChannel(ch);
+   const offer=await pc.createOffer(); await pc.setLocalDescription(offer); sendSignal({description:pc.localDescription});
+ }
+ async function handleSignal(data){
+   if(!pc) setupPeer();
+   if(data.description){
+     await pc.setRemoteDescription(data.description);
+     if(data.description.type==='offer'){
+       const answer=await pc.createAnswer(); await pc.setLocalDescription(answer); sendSignal({description:pc.localDescription});
+     }
+     while(pending.length) await pc.addIceCandidate(pending.shift());
+   } else if(data.candidate){
+     if(pc.remoteDescription) await pc.addIceCandidate(data.candidate); else pending.push(data.candidate);
+   }
+ }
+ $('createBtn').onclick=()=>{
+   if(!workerUrl){$('workerUrl').focus();alert('প্রথমে Worker URL সংরক্ষণ করুন।');return;}
+   const code=randomRoom(); $('qrArea').classList.remove('hidden'); $('roomCode').textContent=code; $('qrcode').innerHTML='';
+   const joinUrl=location.origin+location.pathname+'?room='+code;
+   if(window.QRCode) new QRCode($('qrcode'),{text:joinUrl,width:168,height:168});
+   connectSignal(code); $('createBtn').disabled=true;
+ };
+ if(qs.has('room')){
+   const code=qs.get('room');
+   $('createBtn').classList.add('hidden'); $('qrArea').classList.remove('hidden'); $('roomCode').textContent='ROOM '+code;
+   $('qrArea').querySelector('.note').textContent='এই ফোনটি কম্পিউটারের সঙ্গে যুক্ত হচ্ছে।';
+   connectSignal(code);
+ }
+ $('fileInput').onchange=e=>{selected=[...e.target.files];$('sendBtn').disabled=!connected||!selected.length;};
+ function addItem(container,fileName,detail=''){
+   const el=document.createElement('div');el.className='fileitem';
+   const top=document.createElement('div');top.className='filetop';
+   const name=document.createElement('span');name.textContent=fileName;
+   const info=document.createElement('span');info.textContent=detail;
+   top.append(name,info);const bar=document.createElement('div');bar.className='bar';const fill=document.createElement('i');bar.append(fill);el.append(top,bar);$(container).prepend(el);return {el,fill,info};
+ }
+ const waitBuffer=async()=>{while(channel&&channel.bufferedAmount>1024*1024) await new Promise(r=>setTimeout(r,30));};
+ $('sendBtn').onclick=async()=>{
+   if(!connected||!channel||channel.readyState!=='open')return;
+   $('sendBtn').disabled=true;
+   for(const file of selected){
+     const ui=addItem('transferList',file.name,'0%');
+     channel.send(JSON.stringify({kind:'file-start',name:file.name,size:file.size,mime:file.type||'application/octet-stream'}));
+     let offset=0;
+     while(offset<file.size){
+       const chunk=await file.slice(offset,offset+CHUNK).arrayBuffer();
+       await waitBuffer();channel.send(chunk);offset+=chunk.byteLength;
+       const p=Math.round(offset/file.size*100);ui.fill.style.width=p+'%';ui.info.textContent=p+'%';
+     }
+     channel.send(JSON.stringify({kind:'file-end'}));ui.info.textContent='পাঠানো হয়েছে';
+   }
+   selected=[];$('fileInput').value='';setButtons();
+ };
+ function receiveData(data){
+   if(typeof data==='string'){
+     let m;try{m=JSON.parse(data)}catch{return}
+     if(m.kind==='file-start'){
+       incoming={name:m.name,size:m.size,mime:m.mime,chunks:[],received:0,ui:addItem('receiveList',m.name,'0%')};
+     }else if(m.kind==='file-end'&&incoming){
+       const blob=new Blob(incoming.chunks,{type:incoming.mime});const url=URL.createObjectURL(blob);
+       const a=document.createElement('a');a.href=url;a.download=incoming.name;a.textContent='⬇ ডাউনলোড '+incoming.name;a.className='btn';a.style.display='inline-block';a.style.marginTop='10px';incoming.ui.el.append(a);incoming.ui.info.textContent='সম্পন্ন';incoming.ui.fill.style.width='100%';incoming=null;
+     }
+   }else if(incoming){
+     incoming.chunks.push(data);incoming.received+=data.byteLength;
+     const p=incoming.size?Math.min(100,Math.round(incoming.received/incoming.size*100)):100;
+     incoming.ui.fill.style.width=p+'%';incoming.ui.info.textContent=p+'%';
+   }
+ }
+ $('disconnectBtn').onclick=()=>{
+   connected=false;try{channel&&channel.close();pc&&pc.close();ws&&ws.close();}catch{}
+   ws=pc=channel=null;pending=[];$('createBtn').disabled=false;setStatus('ডিসকানেক্ট হয়েছে।');setButtons();
+ };
+ setButtons();
+})();
+</script>
+</body></html>
